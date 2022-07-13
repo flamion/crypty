@@ -53,18 +53,21 @@ fn main() {
 		.with_file(true)
 		.init();
 
+	debug!("Opening source file: `{}`", &ARGS.source_file.display());
 	let mut source_file = std::fs::OpenOptions::new()
 		.read(true)
 		.write(false)
 		.create(false)
 		.open(&ARGS.source_file)
 		.expect("Couldn't open source file.");
+	debug!("Opening key file: `{}`", &ARGS.key_file.display());
 	let mut key_file = std::fs::OpenOptions::new()
 		.read(true)
 		.write(true)
 		.create(true)
 		.open(&ARGS.key_file)
 		.expect("Couldn't open key file.");
+	debug!("Opening out file: `{}`", &ARGS.out_file.display());
 	let mut out_file = std::fs::OpenOptions::new()
 		.read(false)
 		.write(true)
