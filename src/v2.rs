@@ -48,6 +48,7 @@ pub fn process_file(source_file: &mut File, key_file: &mut File, out_file: &mut 
 			xor_with_key(&mut source_buffer, &key_buffer, source_bytes_read);
 
 			out_file.write_all(&source_buffer[0..source_bytes_read])?;
+			key_file.write_all(&key_buffer[0..source_bytes_read])?;
 		}
 	}
 

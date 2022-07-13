@@ -94,6 +94,6 @@ fn main() {
 }
 
 
-const fn clap_version_long_help() -> &'static str {
+const fn clap_version_help() -> &'static str {
 	"Which version of encryption to use"
 }
