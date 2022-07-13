@@ -1,4 +1,3 @@
-use std::fs::File;
 use std::path::PathBuf;
 
 use clap::Parser;
@@ -54,9 +53,24 @@ fn main() {
 		.with_file(true)
 		.init();
 
-	let mut source_file = File::open(&ARGS.source_file).expect("Couldn't open source file.");
-	let mut key_file = File::open(&ARGS.key_file).expect("Couldn't open key file.");
-	let mut out_file = File::open(&ARGS.out_file).expect("Couldn't open out file.");
+	let mut source_file = std::fs::OpenOptions::new()
+		.read(true)
+		.write(false)
+		.create(false)
+		.open(&ARGS.source_file)
+		.expect("Couldn't open source file.");
+	let mut key_file = std::fs::OpenOptions::new()
+		.read(true)
+		.write(true)
+		.create(true)
+		.open(&ARGS.key_file)
+		.expect("Couldn't open key file.");
+	let mut out_file = std::fs::OpenOptions::new()
+		.read(false)
+		.write(true)
+		.create(true)
+		.open(&ARGS.out_file)
+		.expect("Couldn't open out file.");
 
 	if let Err(why) = match ARGS.version.to_lowercase().as_str() {
 		"v2" => {
