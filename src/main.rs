@@ -17,10 +17,11 @@ lazy_static! {
 pub struct Args {
 	/// Toggles whether debug information should be shown.
 	#[clap(short = 'D', long)]
-	#[clap(default_value = "false")]
+	#[clap(parse(from_flag))]
 	debug: bool,
 	/// Which version of encryption to use.
-	#[clap(short, long, long_help = clap_version_long_help())]
+	/// Available versions: 'v2'
+	#[clap(short, long, help = clap_version_help())]
 	version: String,
 	/// The file to be encrypted/decrypted.
 	#[clap(short = 'f', long)]
@@ -31,9 +32,10 @@ pub struct Args {
 	/// Encrypted/Decrypted output file.
 	#[clap(short = 'o', long)]
 	out_file: PathBuf,
-	/// Whether to decrypt or encrypt.
+	/// Toggles whether to decrypt or encrypt.
+	/// Encrypts files by default
 	#[clap(short, long)]
-	#[clap(default_value = "false")]
+	#[clap(parse(from_flag))]
 	decrypt: bool,
 }
 
@@ -52,6 +54,8 @@ fn main() {
 		.with_line_number(true)
 		.with_file(true)
 		.init();
+
+	debug!("Args received: {:#?}", *ARGS);
 
 	debug!("Opening source file: `{}`", &ARGS.source_file.display());
 	let mut source_file = std::fs::OpenOptions::new()
@@ -91,5 +95,5 @@ fn main() {
 
 
 const fn clap_version_long_help() -> &'static str {
-	"Which version of encryption to use\nAvailable versions: 'v2'"
+	"Which version of encryption to use"
 }
