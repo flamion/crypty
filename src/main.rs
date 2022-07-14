@@ -37,6 +37,11 @@ pub struct Args {
 	#[clap(short, long)]
 	#[clap(parse(from_flag))]
 	decrypt: bool,
+	/// If the specified key file or out file already exists, the program will abort to prevent data loss.
+	/// If this flag is set, it skips the check, overwriting the keyfile/outfile, if either or both exist.
+	#[clap(short, long, help = clap_ignore_file_check_help())]
+	#[clap(parse(from_flag))]
+	ignore_existing_files: bool,
 }
 
 fn main() {
@@ -64,6 +69,17 @@ fn main() {
 		.create(false)
 		.open(&ARGS.source_file)
 		.expect("Couldn't open source file.");
+
+	if !ARGS.ignore_existing_files && !ARGS.decrypt && ARGS.key_file.exists() {
+		error!("Key file exists, would override! Aborting!");
+		std::process::exit(67);
+	}
+
+	if !ARGS.ignore_existing_files && !ARGS.decrypt && ARGS.out_file.exists() {
+		error!("Out file exists, would override! Aborting!");
+		std::process::exit(67)
+	}
+
 	debug!("Opening key file: `{}`", &ARGS.key_file.display());
 	let mut key_file = std::fs::OpenOptions::new()
 		.read(true)
@@ -91,9 +107,14 @@ fn main() {
 	} {
 		error!("An error occurred while processing: {why}");
 	}
+	debug!("All done");
 }
 
 
 const fn clap_version_help() -> &'static str {
 	"Which version of encryption to use"
+}
+
+const fn clap_ignore_file_check_help() -> &'static str {
+	"If set, skip check for existing key/out file"
 }
