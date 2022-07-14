@@ -13,10 +13,10 @@ lazy_static = "1.4.0"
 rand = "0.8.5"
 
 tracing = "0.1.34"
-tracing-subscriber = { version = "0.3.11", features = [ "env-filter" ] }
+tracing-subscriber = { version = "0.3.11", features = ["env-filter"] }
 tracing-core = "0.1.26"
 
 
 [dependencies.clap]
 version = "3.1.6"
-features = [ "derive", "wrap_help"]
+features = ["derive", "wrap_help"]

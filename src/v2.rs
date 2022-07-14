@@ -2,8 +2,7 @@ use std::fs::File;
 use std::io;
 use std::io::{Read, Write};
 
-use rand::distributions::{Uniform, Distribution};
-
+use rand::distributions::{Distribution, Uniform};
 use tracing::error;
 
 use crate::ARGS;
@@ -40,7 +39,7 @@ pub fn process_file(source_file: &mut File, key_file: &mut File, out_file: &mut 
 			let source_bytes_read = source_file.read(&mut source_buffer)?;
 
 			if source_bytes_read == 0 {
-				break
+				break;
 			}
 
 			generate_key(&mut key_buffer, source_bytes_read);
