@@ -1,6 +1,6 @@
 [package]
 name = "encoder_v3"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 authors = ["flamion <flamion@protonmail.com>"]
 description = "Small program to quickly encrypt and decrypt files."
