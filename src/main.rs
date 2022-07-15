@@ -49,9 +49,9 @@ fn main() {
 		.add_directive(Level::INFO.into());
 
 	if ARGS.debug {
-		env_filter = env_filter.add_directive("encoder_v3=debug".parse().unwrap());
+		env_filter = env_filter.add_directive("crypty=debug".parse().unwrap());
 	} else {
-		env_filter = env_filter.add_directive("encoder_v3=info".parse().unwrap());
+		env_filter = env_filter.add_directive("crypty=info".parse().unwrap());
 	}
 
 	tracing_subscriber::fmt()

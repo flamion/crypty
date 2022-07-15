@@ -81,7 +81,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "encoder_v3"
+name = "cypty"
 version = "0.2.0"
 dependencies = [
  "clap",

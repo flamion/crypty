@@ -1,5 +1,5 @@
 [package]
-name = "encoder_v3"
+name = "cypty"
 version = "0.2.0"
 edition = "2021"
 authors = ["flamion <flamion@protonmail.com>"]
