@@ -22,7 +22,6 @@ pub fn process_file(source_file: &mut File, key_file: &mut File, out_file: &mut 
 			if source_bytes_read != key_bytes_read {
 				error!("Amount of bytes read from source file different from amount of bytes read from key file! \
 				Read {source_bytes_read} source bytes and {key_bytes_read} key bytes.");
-				// panic!("source_bytes_read != key_bytes_read");
 				std::process::exit(69);
 			}
 
